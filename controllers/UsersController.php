@@ -42,7 +42,7 @@ class UsersController extends Controller
                     [
                         'actions' => ['index','changeprofilepicture'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => [User::ROLE_USER],
                     ],
 					[
                         'actions' => ['signup'],

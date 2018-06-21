@@ -15,11 +15,11 @@ $this->title = Yii::$app->name;
       <div class="thumbnail">
       <img src="<?= Yii::$app->request->baseUrl ?>/public/img/posts.png"  style="width:100%">
       <br/>
-      <?= Html::a('Posts',['read'],['class'=>'btn btn-lg btn-block btn-info'])  ?>
+      <?= Html::a('Posts',['/read'],['class'=>'btn btn-lg btn-block btn-info'])  ?>
       </div>
     </div>
 
-  
+  <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->role == 1){ ?>
  <div class="col-md-2">
       <div class="thumbnail">
       <img src="<?= Yii::$app->request->baseUrl ?>/public/img/channel.png" style="width:100%">
@@ -27,7 +27,7 @@ $this->title = Yii::$app->name;
       <?= Html::a('Channels',['/channel'],['class'=>'btn btn-lg btn-block btn-primary'])  ?>
       </div>
     </div>
-
+	<?php } ?>
   
       <div class="col-md-2">
       <div class="thumbnail">
