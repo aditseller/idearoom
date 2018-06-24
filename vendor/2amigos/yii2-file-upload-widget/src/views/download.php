@@ -5,18 +5,12 @@
         <td>
             <span class="preview">
                 {% if (file.thumbnailUrl) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img style="width:250px"  src="{%=file.thumbnailUrl%}"></a>
+                    <img style="width:250px"  src="{%=file.thumbnailUrl%}">
                 {% } %}
             </span>
         </td>
         <td>
-            <p class="name">
-                {% if (file.url) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-                {% } else { %}
-                    <span>{%=file.name%}</span>
-                {% } %}
-            </p>
+           
             {% if (file.error) { %}
                 <div><span class="label label-danger"><?= Yii::t('fileupload', 'Error') ?></span> {%=file.error%}</div>
             {% } %}

@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
     'gallery' => false,
     'fieldOptions' => [
         'accept' => 'image/*',
-        'required' => true,
     ],
     'clientOptions' => [
         'maxFileSize' => 2000000

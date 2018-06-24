@@ -25,13 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id_read',
-            'title',
-            'content:ntext',
+            //'id_read',
+              [
+           'label'=>'title',
+           'format' => 'raw',
+       'value'=>function ($data) {
+            return Html::a($data->title,$data->title,['target'=>'_blank']);
+        },
+    ],
+            //'content:ntext',
             'channel',
-            'tag',
-            //'created_by',
-            //'created_at',
+            //'tag',
+            'created_by',
+            'created_at',
             //'url:url',
             //'poster',
             //'source',
