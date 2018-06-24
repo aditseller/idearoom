@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "yiisoft/yii2-imagine": "^2.1",
         "froala/yii2-froala-editor": "*",
-		"xj/yii2-tagit-widget": "*"
+		"xj/yii2-tagit-widget": "*",
+        "2amigos/yii2-file-upload-widget": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

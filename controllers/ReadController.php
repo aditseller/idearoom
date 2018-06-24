@@ -8,7 +8,10 @@ use app\models\ReadSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\imagine\Image;
+use yii\helpers\FileHelper;
+use yii\web\UploadedFile;
+use yii\helpers\Json;
 /**
  * ReadController implements the CRUD actions for Read model.
  */
@@ -65,8 +68,19 @@ class ReadController extends Controller
     public function actionCreate()
     {
         $model = new Read();
+        
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->poster = 'public/uploads/read/'.sha1($model->title).'.jpg';
+
+        if($model->save()) {
+
+            $linkPoster = 'public/uploads/read/';
+            $renamePoster = rename($linkPoster.'postby'.sha1(Yii::$app->user->identity->id). '.jpg', $linkPoster.sha1($model->title).'.jpg'); 
+        }
+             
+
             return $this->redirect(['view', 'id' => $model->id_read]);
         }
 
@@ -74,6 +88,42 @@ class ReadController extends Controller
             'model' => $model,
         ]);
     }
+
+
+     //Poster Upload
+    public function actionUpload() {
+    $model = new Read();
+
+    $imageFile = UploadedFile::getInstance($model, 'poster');
+
+    $directory = 'public/uploads/read/';
+    if (!is_dir($directory)) {
+        FileHelper::createDirectory($directory);
+    }
+
+    if ($imageFile) {
+        $uid = uniqid(time(), true);
+        $fileName = 'postby'.sha1(Yii::$app->user->identity->id). '.jpg';
+        $filePath = $directory . $fileName;
+        if ($imageFile->saveAs($filePath)) {
+            $path = $filePath;
+            return Json::encode([
+                'files' => [
+                    [
+                        'name' => $fileName,
+                        'size' => $imageFile->size,
+                        'url' => Yii::$app->request->baseUrl.'/public/uploads/read/'.$fileName,
+                        'thumbnailUrl' => Yii::$app->request->baseUrl.'/public/uploads/read/'.$fileName,
+                        'deleteUrl' => 'image-delete?name=' . $fileName,
+                        'deleteType' => 'POST',
+                    ],
+                ],
+            ]);
+        }
+    }
+
+    return '';
+}
 
     /**
      * Updates an existing Read model.

@@ -1,10 +1,4 @@
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
-<script>
-function forceLower(strInput) 
-{
-strInput.value=strInput.value.toLowerCase();
-}​
-</script>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <?php
 
 use yii\helpers\Html;
@@ -12,6 +6,8 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\JsExpression;
+
+use dosamigos\fileupload\FileUploadUI;
 /* @var $this yii\web\View */
 /* @var $model app\models\Read */
 
@@ -25,28 +21,42 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'ng-model'=>'yourName']) ?>
-	<?= $form->field($model, 'channel')->dropDownList(ArrayHelper::map(\app\models\Channel::find()->asArray()->all(), 'channel', 'channel'), ['prompt' => '-- Select Channel --', 'ng-model'=>'channel']) ?>
-	
-	<?= $form->field($model, 'url')->textInput(['maxlength' => true,'value'=>'{{channel}}-{{yourName}}','onkeyup'=>'return forceLower(this);' , 'readonly'=>true]) ?>
-  <hr/>
-	
-	<?php echo froala\froalaeditor\FroalaEditorWidget::widget([
-    'name' => 'content',
-    'options'=>[// html attributes
-        'id'=>'content'
+<div class="col-md-12">
+<center>
+<?= FileUploadUI::widget([
+    'model' => $model,
+    'attribute' => 'poster',
+    'url' => ['read/upload'],
+    'gallery' => false,
+    'fieldOptions' => [
+        'accept' => 'image/*',
+        'required' => true,
     ],
-    'clientOptions'=>[
-        'toolbarInline'=> false,
-        'theme' =>'royal',//optional: dark, red, gray, royal
-		'height' => 370,
-        'language'=>'en_us' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
-    ]
-]);; ?>
-<hr/>
-     
+    'clientOptions' => [
+        'maxFileSize' => 2000000
+    ],
+    // ...
+    'clientEvents' => [
+        'fileuploaddone' => 'function(e, data) {
+                                console.log(e);
+                                console.log(data);
+                            }',
+        'fileuploadfail' => 'function(e, data) {
+                                console.log(e);
+                                console.log(data);
+                            }',
+    ],
+]); ?>
+</center>
+    </div>
+    <hr/>
 
-       <?= //work with ActiveForm
+
+    <div class="col-md-12"><?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?></div>
+	 <div class="col-md-4"><?= $form->field($model, 'channel')->dropDownList(ArrayHelper::map(\app\models\Channel::find()->asArray()->all(), 'channel', 'channel'), ['prompt' => '-- Select Channel --']) ?></div>
+     <div class="col-md-4"><?= $form->field($model, 'source')->textInput(['maxlength' => true,'placeholder'=>'(Optional) Ignore if empty']) ?></div>
+	
+	 <div class="col-md-4"> <?= //work with ActiveForm
 $form->field($model, 'tag')->widget(\xj\tagit\Tagit::className(), [
     'clientOptions' => [
         'tagSource' => Url::to(['tag/get-autocomplete']),
@@ -65,20 +75,43 @@ function(event, ui){
 EOF
 ),
     ],
-]); ?>
+]); ?></div>
+  
+	
+	 <div class="col-md-12"><?php echo froala\froalaeditor\FroalaEditorWidget::widget([
+    'name' => 'content',
+    'model' => $model,
+    'attribute' => 'content',
+    'options'=>[// html attributes
+        'id'=>'content'
+    ],
+    'clientOptions'=>[
+        'toolbarInline'=> false,
+        'theme' =>'gray',//optional: dark, red, gray, royal
+		'height' => 300,
+        'language'=>'en_us' // optional: ar, bs, cs, da, de, en_ca, en_gb, en_us ...
+    ]
+]); ?></div>
+ 
+     
+
+      
 
  
 
-  
+<div class="col-md-12"> 
+    <hr/>
 
-    <?= $form->field($model, 'poster')->fileInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'source')->textInput(['maxlength' => true,'placeholder'=>'(Optional) Ignore if empty']) ?>
+    
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Publish', ['class' => 'btn btn-lg btn-primary']) ?>
     </div>
-
+</div>
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+
+  

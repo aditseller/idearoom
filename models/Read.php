@@ -37,7 +37,7 @@ class Read extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'content', 'channel', 'tag', 'created_by', 'created_at', 'url', 'poster', 'source'], 'required'],
+            [['title', 'content', 'channel', 'tag'], 'required'],
             [['content'], 'string'],
             [['created_at'], 'safe'],
             [['title'], 'string', 'max' => 150],
@@ -82,5 +82,18 @@ class Read extends \yii\db\ActiveRecord
     public function getCreatedBy()
     {
         return $this->hasOne(Users::className(), ['fullname' => 'created_by']);
+    }
+
+    public function beforeSave($insert) {
+        
+            
+        $this->created_at = date("Y-m-d H:i:s");
+        $this->created_by = Yii::$app->user->identity->fullname;
+        $this->url = 'kjdfsfksjfld';
+        
+            
+            
+        
+            return parent::beforeSave($insert);
     }
 }
