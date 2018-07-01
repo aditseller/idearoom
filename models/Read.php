@@ -89,7 +89,11 @@ class Read extends \yii\db\ActiveRecord
             
         $this->created_at = date("Y-m-d H:i:s");
         $this->created_by = Yii::$app->user->identity->fullname;
-        $this->url = 'kjdfsfksjfld';
+    
+
+        $entities = array('?',' ',':','!',',');
+         $replacements = array('','-','','-','-');
+         $this->url = str_replace($entities, $replacements, $this->title.'-'.date('ymdhis', strtotime($this->created_at)));
         
             
             

@@ -78,6 +78,11 @@ class ReadController extends Controller
 
             $linkPoster = 'public/uploads/read/';
             $renamePoster = rename($linkPoster.'postby'.sha1(Yii::$app->user->identity->id). '.jpg', $linkPoster.sha1($model->title).'.jpg'); 
+
+             //Create Thumbnail Image and Resize
+            Image::thumbnail($linkPoster.sha1($model->title).'.jpg',700,393)->save($linkPoster.sha1($model->title).'.jpg');
+            
+            return $this->redirect(['index']);
         }
              
 

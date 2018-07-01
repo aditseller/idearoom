@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.8.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2018 at 11:07 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: Jul 01, 2018 at 11:06 PM
+-- Server version: 10.1.32-MariaDB
+-- PHP Version: 7.2.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -38,7 +38,35 @@ CREATE TABLE `channel` (
 --
 
 INSERT INTO `channel` (`id_channel`, `channel`) VALUES
-(1, 'News');
+(2, 'hits'),
+(4, 'lifestyle'),
+(1, 'listicle'),
+(3, 'stories');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hit`
+--
+
+CREATE TABLE `hit` (
+  `id_hit` int(11) NOT NULL,
+  `user_ip` varchar(20) NOT NULL,
+  `link` varchar(500) NOT NULL,
+  `combine` varchar(500) NOT NULL,
+  `urlpost` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `hit`
+--
+
+INSERT INTO `hit` (`id_hit`, `user_ip`, `link`, `combine`, `urlpost`) VALUES
+(19, '::1', '/sobatnetizen/read/Cara-Jeremy-Thomas-Mempertahankan-Eksistensi-180701100154', '::1/sobatnetizen/read/Cara-Jeremy-Thomas-Mempertahankan-Eksistensi-180701100154', 'Cara-Jeremy-Thomas-Mempertahankan-Eksistensi-180701100154'),
+(20, '::1', '/sobatnetizen/read/Pemilu-Meksiko--3-Capres-Akan-Bertarung-Gantikan-Presiden-Nieto-180630110347', '::1/sobatnetizen/read/Pemilu-Meksiko--3-Capres-Akan-Bertarung-Gantikan-Presiden-Nieto-180630110347', 'Pemilu-Meksiko--3-Capres-Akan-Bertarung-Gantikan-Presiden-Nieto-180630110347'),
+(21, '::1', '/sobatnetizen/read/Maradona-Saatnya-Messi-Panaskan-Mesin--180630110035', '::1/sobatnetizen/read/Maradona-Saatnya-Messi-Panaskan-Mesin--180630110035', 'Maradona-Saatnya-Messi-Panaskan-Mesin--180630110035'),
+(22, '192.168.1.1', '/sobatnetizen/read/Pemilu-Meksiko--3-Capres-Akan-Bertarung-Gantikan-Presiden-Nieto-180630110347', '192.168.1.1/sobatnetizen/read/Pemilu-Meksiko--3-Capres-Akan-Bertarung-Gantikan-Presiden-Nieto-180630110347', 'Pemilu-Meksiko--3-Capres-Akan-Bertarung-Gantikan-Presiden-Nieto-180630110347'),
+(23, '::1', '/sobatnetizen/read/Setahun-Jauhi-Hingar-Bingar-Ibu-Kota-Untuk-Pindah-ke-Bali--Presenter-Kondang-ini-Ungkap-Perasaannya-180630104818', '::1/sobatnetizen/read/Setahun-Jauhi-Hingar-Bingar-Ibu-Kota-Untuk-Pindah-ke-Bali--Presenter-Kondang-ini-Ungkap-Perasaannya-180630104818', 'Setahun-Jauhi-Hingar-Bingar-Ibu-Kota-Untuk-Pindah-ke-Bali--Presenter-Kondang-ini-Ungkap-Perasaannya-180630104818');
 
 -- --------------------------------------------------------
 
@@ -58,6 +86,16 @@ CREATE TABLE `read` (
   `poster` varchar(500) NOT NULL,
   `source` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `read`
+--
+
+INSERT INTO `read` (`id_read`, `title`, `content`, `channel`, `tag`, `created_by`, `created_at`, `url`, `poster`, `source`) VALUES
+(5, 'Setahun Jauhi Hingar Bingar Ibu Kota Untuk Pindah ke Bali, Presenter Kondang ini Ungkap Perasaannya', '<p>Presenter kondang Cici Panda ungkapkan perasaannya setelah memutuskan pindah dari Kota Jakarta selama satu tahun. Berdasarkan unggahannya di Instagram, diketahui Cici Panda memutuskan untuk pindah ke Bali bersama keluarga kecilnya. Tepat satu tahun kepindahannya ke Bali, ibu dari Alika ini unggah sebuah foto di Instagramnya kemarin Jumat (29/6/2018). Dalam foto itu tampak dirinya mengenakan dress kasual bergaris warna merah dan putih. Sang buah hati, Alika, juga ada dalam foto tersebut, memeluk perut Panda.</p>', 'hits', 'panda,artis', 'Tezar Aditya', '2018-06-30 10:48:18', 'Setahun-Jauhi-Hingar-Bingar-Ibu-Kota-Untuk-Pindah-ke-Bali--Presenter-Kondang-ini-Ungkap-Perasaannya-180630104818', 'public/uploads/read/01e24949b82b1536f9140c86c573615da1eb86e5.jpg', ''),
+(7, 'Maradona: Saatnya Messi Panaskan Mesin!', '<p>Moskow - Argentina susah payah dan Lionel Messi menandai dengan satu gol untuk sampai di babak 16 besar Piala Dunia 2018. Tapi, Maradona optimistis ini jadi tahunnya Messi. Messi tak bisa berbuat banyak dalam dua pertandingan pertama Argentina. Pemain Barcelona itu tak membuat gol ataupun assist.&nbsp;</p><p>Laju Argentina turut tersendat. Tim Tango diimbangi Islandia dan kandas di tangan Kroasia hingga membuat mereka dalam situasi terjepit, harus menang di laga ketiga dan bergantung hasil laga lain.</p>', 'hits', 'messi', 'Tezar Aditya', '2018-06-30 11:00:35', 'Maradona-Saatnya-Messi-Panaskan-Mesin--180630110035', 'public/uploads/read/79ca7ef27c50aa8b290250e3dd66862eba3c06a3.jpg', ''),
+(8, 'Pemilu Meksiko, 3 Capres Akan Bertarung Gantikan Presiden Nieto', '<p><strong>Mexico City -</strong> Dalam pemilihan presiden (pilpres) Meksiko yang akan digelar 1 Juli besok, ada tiga capres yang akan bertarung menggantikan kepemimpinan Presiden Enrique Pena Nieto, yang sangat tidak populer di tengah melonjaknya kejahatan kekerasan dan korupsi di negara tersebut.&nbsp;</p><p>Siapa saja ketiga capres itu? Seperti dilansir Sky News, Sabtu (30/6/2018), capres terpopuler dari sayap kiri, Andres Manuel Lopez Obrador, atau AMLO, diprediksi akan memenangi pemilu Meksiko besok. Mantan Wali Kota Mexico City yang dijuluki sebagai &quot;Donald Trump-nya Meksiko&quot; itu unggul dalam polling-polling menjelang pilpres. Dalam kampanyenya, dia berjanji akan memerangi &quot;mafia kekuasaan&quot; untuk membela masyarakat jelas pekerja</p>', 'hits', 'meksiko', 'Tezar Aditya', '2018-06-30 11:03:47', 'Pemilu-Meksiko--3-Capres-Akan-Bertarung-Gantikan-Presiden-Nieto-180630110347', 'public/uploads/read/a1d6f25bada7ae14692223693612551b6dd05355.jpg', ''),
+(9, 'Cara Jeremy Thomas Mempertahankan Eksistensi', '<div data-block=\"true\" data-editor=\"idvr\" data-offset-key=\"8hbik-0-0\"><div data-offset-key=\"8hbik-0-0\"><span data-offset-key=\"8hbik-0-0\"><span data-text=\"true\">Aktor&nbsp;</span></span><span data-offset-key=\"8hbik-1-0\"><span data-text=\"true\">Jeremy Thomas&nbsp;</span></span><span data-offset-key=\"8hbik-2-0\"><span data-text=\"true\">memulai kariernya sejak era 90-an dan masih eksis sampai sekarang ini. Bahkan di tahun 2018, Jeremy berkesempatan untuk bermain&nbsp;</span></span><span data-offset-key=\"8hbik-3-0\"><span data-text=\"true\">film horor</span></span><span data-offset-key=\"8hbik-4-0\"><span data-text=\"true\">&nbsp;bersama para pemain muda dalam film terbarunya &#39;13 The Haunted&#39;.&nbsp;</span></span></div></div><figure contenteditable=\"false\" data-block=\"true\" data-editor=\"idvr\" data-offset-key=\"outstreamVideoAds-0-0\"></figure><div data-block=\"true\" data-editor=\"idvr\" data-offset-key=\"df2ce-0-0\"><div data-offset-key=\"df2ce-0-0\"><span data-offset-key=\"df2ce-0-0\"><span data-text=\"true\">Ayah dua orang anak ini mengatakan bahwa menjaga eksistensi tidaklah mudah. Tampang boleh oke, tapi tidak hanya sekadar itu saja. Harus ada niat, tekad, mental dan fisik harus terus dijaga.</span></span></div></div><div data-block=\"true\" data-editor=\"idvr\" data-offset-key=\"br72a-0-0\"><div data-offset-key=\"br72a-0-0\"><span data-offset-key=\"br72a-0-0\"><span data-text=\"true\">&quot;Oleh karena itu kita sebagai pelakunya wajib menjaga stamina, fisik, kualitas kita dengan baik. Kapan kita dibutuhkan kita&nbsp;</span></span><span data-offset-key=\"br72a-0-1\"><span data-text=\"true\">ready</span></span><span data-offset-key=\"br72a-0-2\"><span data-text=\"true\">,&quot; kata Jeremy ditemui di kawasan Kemang, Jakarta Selatan, baru-baru ini.</span></span></div></div>', 'lifestyle', 'jeremythomas,artis,lifestyle', 'Tezar Aditya', '2018-07-01 10:01:54', 'Cara-Jeremy-Thomas-Mempertahankan-Eksistensi-180701100154', 'public/uploads/read/c64fd2de816d1cf31219a47a64ae61c6ac23bd8a.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -119,11 +157,22 @@ ALTER TABLE `channel`
   ADD UNIQUE KEY `channel` (`channel`);
 
 --
+-- Indexes for table `hit`
+--
+ALTER TABLE `hit`
+  ADD PRIMARY KEY (`id_hit`),
+  ADD UNIQUE KEY `combine` (`combine`),
+  ADD KEY `link` (`link`),
+  ADD KEY `title` (`urlpost`),
+  ADD KEY `urlpost` (`urlpost`);
+
+--
 -- Indexes for table `read`
 --
 ALTER TABLE `read`
   ADD PRIMARY KEY (`id_read`),
   ADD UNIQUE KEY `title` (`title`),
+  ADD UNIQUE KEY `url` (`url`),
   ADD KEY `channel` (`channel`),
   ADD KEY `tag` (`tag`),
   ADD KEY `created_by` (`created_by`),
@@ -154,25 +203,41 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `channel`
 --
 ALTER TABLE `channel`
-  MODIFY `id_channel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_channel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `hit`
+--
+ALTER TABLE `hit`
+  MODIFY `id_hit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
 --
 -- AUTO_INCREMENT for table `read`
 --
 ALTER TABLE `read`
-  MODIFY `id_read` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_read` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `hit`
+--
+ALTER TABLE `hit`
+  ADD CONSTRAINT `hit_ibfk_1` FOREIGN KEY (`urlpost`) REFERENCES `read` (`url`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `read`
