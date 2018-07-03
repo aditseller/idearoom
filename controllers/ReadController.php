@@ -130,6 +130,30 @@ class ReadController extends Controller
     return '';
 }
 
+		//Delete Image Preview
+	public function actionImageDelete($name) {
+    $directory = 'public/uploads/read/';
+    if (is_file($directory . DIRECTORY_SEPARATOR . $name)) {
+        unlink($directory . DIRECTORY_SEPARATOR . $name);
+    }
+
+    $files = FileHelper::findFiles($directory);
+    $output = [];
+    foreach ($files as $file) {
+        $fileName = 'postby'.sha1((Yii::$app->user->identity->id). '.jpg');
+        $path = $directory . $fileName;
+        $output['files'][] = [
+            'name' => $fileName,
+            //'size' => filesize($file),
+            'url' => $path,
+            'thumbnailUrl' => $path,
+            'deleteUrl' => 'image-delete?name=' . $fileName,
+            'deleteType' => 'POST',
+        ];
+    }
+    return Json::encode($output);
+}
+
     /**
      * Updates an existing Read model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -159,8 +183,11 @@ class ReadController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+		$model = $this->findModel($id);
+		$directory = 'public/uploads/read/';
+		$fileName = sha1($model->title).'.jpg';
+        $model->delete();
+		unlink($directory.$fileName);
         return $this->redirect(['index']);
     }
 

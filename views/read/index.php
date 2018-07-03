@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
            'label'=>'title',
            'format' => 'raw',
        'value'=>function ($data) {
-            return Html::a($data->title,$data->title,['target'=>'_blank']);
+            return Html::a($data->title,'https://www.sobatnetizen.com/read/'.$data->url,['target'=>'_blank']);
         },
     ],
             //'content:ntext',
