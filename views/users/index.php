@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 $this->title = 'Account Setting';
 
-$urlimg = Yii::$app->params['rootUrl']."public/uploads/profile/".sha1(Yii::$app->user->identity->id).'.jpg';
+$urlimg = Yii::$app->params['assetsUrl']."uploads/profile/".sha1(Yii::$app->user->identity->id).'.jpg';
 $header_response_urlimg = get_headers($urlimg, 1);
 
 $modelRoles = app\models\Roles::find()->where(['id_role' => Yii::$app->user->identity->role])->one();
@@ -36,12 +36,12 @@ $modelRoles = app\models\Roles::find()->where(['id_role' => Yii::$app->user->ide
 	<center>
 	<?php if(strpos($header_response_urlimg[0],"404") !== false) { ?>
         <!-- No Picture -->
-        <a href="<?= Yii::$app->homeUrl ?>users/changeprofilepicture"><img width="25%" class="img-circle" src="<?= Yii::$app->homeUrl ?>/public/img/nopic.png"></a>
+        <a href="<?= Yii::$app->homeUrl ?>users/changeprofilepicture"><img width="25%" class="img-circle" src="<?= Yii::$app->params['assetsUrl'] ?>img/nopic.png"></a>
 
         <?php } else { ?>
 
         <!-- Picture Profile Available -->
-        <a href="<?= Yii::$app->homeUrl ?>users/changeprofilepicture"><img width="25%" class="img-circle" src="<?= Yii::$app->homeUrl ?>/public/uploads/profile/<?= sha1(Yii::$app->user->identity->id) ?>.jpg"></a>
+        <a href="<?= Yii::$app->homeUrl ?>users/changeprofilepicture"><img width="25%" class="img-circle" src="<?= Yii::$app->params['assetsUrl'] ?>uploads/profile/<?= sha1(Yii::$app->user->identity->id) ?>.jpg"></a>
 
         <?php } ?>
 		

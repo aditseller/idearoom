@@ -2,5 +2,6 @@
 
 return [
     'adminEmail' => 'admin@example.com',
-	'rootUrl' => 'http://localhost/idearoom/',
+	'rootUrl' => 'https://idearoom.sobatnetizen.com/',
+	'assetsUrl' => 'https://cdn.sobatnetizen.com/public/',
 ];
