@@ -1,7 +1,7 @@
 <?php
-date_default_timezone_set("Asia/Jakarta");
-namespace app\controllers;
 
+namespace app\controllers;
+date_default_timezone_set("Asia/Jakarta");
 use Yii;
 use app\models\Read;
 use app\models\ReadSearch;
@@ -69,25 +69,25 @@ class ReadController extends Controller
     {
         $model = new Read();
         
-		$this->created_at = date("Y-m-d H:i:s");
+		$model->created_at = date("Y-m-d H:i:s");
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->poster = 'public/uploads/read/'.sha1($model->title).'.jpg';
+            $model->poster = 'public/uploads/read/'.sha1($model->id_read).'.jpg';
 
         if($model->save()) {
 
             $linkPoster = 'public/uploads/read/';
-            $renamePoster = rename($linkPoster.'postby'.sha1(Yii::$app->user->identity->id). '.jpg', $linkPoster.sha1($model->title).'.jpg'); 
+            $renamePoster = rename($linkPoster.'postby'.sha1(Yii::$app->user->identity->id). '.jpg', $linkPoster.sha1($model->id_read).'.jpg'); 
 
              //Create Thumbnail Image and Resize
-            Image::thumbnail($linkPoster.sha1($model->title).'.jpg',700,393)->save($linkPoster.sha1($model->title).'.jpg');
+            Image::thumbnail($linkPoster.sha1($model->id_read).'.jpg',700,393)->save($linkPoster.sha1($model->id_read).'.jpg');
             
-            return $this->redirect(['index']);
+           
         }
              
 
-            return $this->redirect(['view', 'id' => $model->id_read]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
@@ -167,7 +167,7 @@ class ReadController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_read]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -186,7 +186,7 @@ class ReadController extends Controller
     {
 		$model = $this->findModel($id);
 		$directory = 'public/uploads/read/';
-		$fileName = sha1($model->title).'.jpg';
+		$fileName = sha1($model->id_read).'.jpg';
         $model->delete();
 		unlink($directory.$fileName);
         return $this->redirect(['index']);
