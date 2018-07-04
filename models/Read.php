@@ -87,7 +87,7 @@ class Read extends \yii\db\ActiveRecord
     public function beforeSave($insert) {
         
             
-        $this->created_at = date("Y-m-d H:i:s");
+        
         $this->created_by = Yii::$app->user->identity->fullname;
     
 

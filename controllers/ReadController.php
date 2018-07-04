@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set("Asia/Jakarta");
 namespace app\controllers;
 
 use Yii;
@@ -69,6 +69,7 @@ class ReadController extends Controller
     {
         $model = new Read();
         
+		$this->created_at = date("Y-m-d H:i:s");
 
         if ($model->load(Yii::$app->request->post())) {
 
